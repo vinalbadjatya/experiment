@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-
-  require 'csv'
   skip_before_action :verify_authenticity_token 
   before_action :set_user, only: %i[ show edit update destroy ]
   
@@ -8,6 +6,12 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    respond_to do |format|
+      format.html
+      format.csv do |csv|
+        send_data User.to_csv(@users), filename: Date.today.to_s, content_type: "text/csv"
+      end
+    end
   end
 
   def import

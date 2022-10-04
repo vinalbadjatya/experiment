@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-<%= link_to "Download as csv", users_path(format: :csv) %><br>
+<%= link_to "Download as csv", users_path(format: :csv), download: ["Users", Date.today] %><br>
+<%= link_to "Download as csv", users_path(format: :csv) %>
 <%= form_with url: import_users_path, method: :post do |form|%>
   <%= form.file_field :file,accept: ".csv" %>
   <%= form.button "import" %>
