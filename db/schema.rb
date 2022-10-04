@@ -13,9 +13,10 @@
 ActiveRecord::Schema.define(version: 2022_10_03_124422) do
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.integer "mobile_no"
+    t.string "username"
+    t.string "identifier"
+    t.string "first_name"
+    t.integer "last_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

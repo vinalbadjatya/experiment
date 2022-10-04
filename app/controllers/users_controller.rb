@@ -1,11 +1,33 @@
 class UsersController < ApplicationController
+
+  require 'csv'
+  skip_before_action :verify_authenticity_token 
   before_action :set_user, only: %i[ show edit update destroy ]
+  
 
   # GET /users or /users.json
   def index
     @users = User.all
   end
 
+  def import
+  
+    file = params[:file]
+    return redirect_to users_path, notice: "only csv please" unless  file.content_type == "text/csv"
+    file = File.open(file)
+    csv = CSV.parse(file, headers: true)
+    csv.each do |row|
+      user_hash = {}
+      user_hash[:username] = row["Username"]
+      user_hash[:identifier] = row["Identifier"]
+      user_hash[:first_name] = row["First name"]
+      user_hash[:last_name] = row["Last name"]
+      User.create(user_hash)
+      # byebug
+      #  p row
+    end
+    redirect_to users_path, notice: 'users imported!'
+  end
   # GET /users/1 or /users/1.json
   def show
   end
@@ -65,6 +87,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :email, :mobile_no)
+      params.require(:user).permit(:username,  :identifier, :first_name, :last_name)
     end
 end
