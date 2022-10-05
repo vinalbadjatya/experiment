@@ -1,37 +1,26 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_with(model: user,local: false) do |form| %>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+ <div class="modal-body">
+   <div id= "errorArea" ></div>  
+  <div class=form-group>
     <%= form.label :Username %>
-    <%= form.text_field :username %>
+    <%= form.text_field :username, class: 'form-control' %><br>
   </div>
 
-  <div class="field">
+  <div class=form-group>
     <%= form.label :Identifier %>
-    <%= form.text_field :identifier %>
+    <%= form.text_field :identifier, class: 'form-control' %><br>
   </div>
 
-  <div class="field">
+  <div class=form-group>
     <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
+    <%= form.text_field :first_name , class: 'form-control'%><br>
   </div>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.number_field :last_name %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit %>
   </div>
+    <%# <div class="modal-footer"> %>
+    <%= form.submit class: "btn btn-primary"%>
+    <button type="button" class="btn btn-secondary close-model" data-bs-dismiss="modal">Close</button>
+    <%# </div> %>
 <% end %>

@@ -1,0 +1,8 @@
+<% if @user.errors.any? %>
+ alert('Invalid Details');
+<% else %>
+$("#usersRow_<%= @user.id %>").replaceWith("<%= escape_javascript render('user_row', user: @user)%>");
+
+$(".close-model").click();
+
+<% end %>
